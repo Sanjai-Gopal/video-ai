@@ -1,0 +1,23 @@
+# AIEntertainer - Requirements
+# Core
+PyYAML>=6.0
+requests>=2.31
+websocket-client>=1.6
+schedule>=1.2
+
+# Google APIs (YouTube)
+google-auth>=2.23
+google-auth-oauthlib>=1.1
+google-auth-httplib2>=0.1
+google-api-python-client>=2.10
+
+# Data & Analytics
+pandas>=2.1
+
+# TTS (optional - install manually if needed)
+# TTS>=0.22  # Coqui TTS - conflicts with pandas>=2.1, install separately if needed
+
+# Video Processing
+# ffmpeg-python>=0.2  # We use subprocess directly
+
+# ComfyUI Client (we use direct HTTP/WS)

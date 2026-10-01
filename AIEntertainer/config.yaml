@@ -1,0 +1,134 @@
+# AIEntertainer - Fully Automated Roaster/Commentator Channel
+# Shorts/Reels/TikTok focus, 8GB VRAM optimized
+
+system:
+  name: "AIEntertainer"
+  version: "1.0.0"
+  timezone: "Asia/Kolkata"
+  schedule_times: ["09:00", "13:00", "18:00", "21:00"]  # 4 posts/day
+  max_daily_videos: 4
+
+# Character Configuration
+character:
+  name: "RoastBot"  # Your AI roaster's name
+  archetype: "roaster_comentator"
+  personality: |
+    Cynical, sharp-tongued Indian Gen Z who roasts viral trends, 
+    cringe content, Bollywood, influencers, and internet culture.
+    Uses Hindi-English mix (Hinglish). Relatable but savage.
+    Catchphrases: "Bhai kya dekh raha hai", "Yeh kya bakwas hai", "Unfollow karo isse"
+  visual_description: |
+    Young Indian male, early 20s, messy hair, thick black glasses, 
+    wearing oversized hoodie (dark gray/black), sitting in dim room 
+    with RGB keyboard, LED strip lights, posters on wall. 
+    Expressions: judgmental stare, eye roll, smirk, facepalm.
+  catchphrases:
+    - "Bhai kya dekh raha hai"
+    - "Yeh kya bakwas hai"
+    - "Unfollow karo isse"
+    - "Dimag kharab ho gaya mera"
+    - "Ye trend kisne shuru kiya"
+  language: "hinglish"
+  tone: "savage_but_relatable"
+
+# Ollama LLM (Local)
+ollama:
+  host: "http://localhost:11434"
+  model: "llama3.1:8b"
+  temperature: 0.9
+  max_tokens: 1500
+  timeout: 120
+
+# ComfyUI Video Generation (8GB VRAM Optimized)
+comfyui:
+  host: "http://localhost:8188"
+  workflow: "roaster_animatediff.json"
+  video_length: 5  # seconds per clip
+  fps: 8
+  width: 576
+  height: 1024  # 9:16
+  timeout: 180
+  # 8GB VRAM settings
+  low_vram: true
+  model: "sd_xl_base_1.0.safetensors"
+  animatediff_model: "animatediff_motion_module_v15.ckpt"
+
+# TTS (Local - Coqui or System)
+tts:
+  engine: "coqui"
+  coqui:
+    model: "tts_models/en/ljspeech/tacotron2-DDC"
+    speed: 1.1
+  fallback: "system"
+
+# Video Editor (FFmpeg + Templates)
+editor:
+  template: "roaster_template.json"
+  caption_style:
+    font: "Impact"
+    fontsize: 52
+    color: "white"
+    stroke_color: "black"
+    stroke_width: 3
+    position: "center"
+  add_watermark: true
+  watermark: "@RoastBot"
+  music_volume: 0.15
+  intro_duration: 0.5
+  outro_duration: 0.5
+
+# Social Media Posting
+social_media:
+  youtube:
+    enabled: true
+    client_secrets: "credentials/youtube_client_secrets.json"
+    token_file: "credentials/youtube_token.json"
+    category_id: "24"  # Entertainment
+    privacy: "public"
+    tags: ["roast", "commentary", "viral", "trends", "shorts", "india", "hinglish"]
+  instagram:
+    enabled: true
+    access_token: "credentials/ig_access_token.txt"
+    business_account_id: "YOUR_IG_BUSINESS_ACCOUNT_ID"
+  tiktok:
+    enabled: true
+    access_token: "credentials/tiktok_access_token.txt"
+    client_key: "credentials/tiktok_client_key.txt"
+    client_secret: "credentials/tiktok_client_secret.txt"
+
+# Content Sources for Roasting
+content_sources:
+  youtube_trending_api: true
+  twitter_trends: true
+  instagram_reels_trending: true
+  reddit_india: true
+  # Topics to roast
+  roast_categories:
+    - "cringe_reels"
+    - "fake_gurus"
+    - "bollywood_logic"
+    - "influencer_scams"
+    - "viral_challenges"
+    - "relatable_struggles"
+    - "tech_scams"
+    - "education_system"
+
+# Monetization
+monetization:
+  affiliate_links:
+    - name: "VPN Deal"
+      url: "YOUR_AFFILIATE_LINK"
+      trigger_keywords: ["privacy", "tracking", "data"]
+    - name: "Course Platform"
+      url: "YOUR_AFFILIATE_LINK"
+      trigger_keywords: ["learn", "skill", "career"]
+  cta_variations:
+    - "Link in bio for the VPN I use"
+    - "Check description for the course I recommend"
+    - "Bio link has the tool that saves me"
+
+# Analytics
+analytics:
+  db_path: "data/analytics/ai_entertainer.db"
+  track_retention: true
+  update_interval_hours: 4

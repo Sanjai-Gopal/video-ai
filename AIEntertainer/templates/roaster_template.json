@@ -1,0 +1,31 @@
+{
+  "intro": {
+    "duration": 0.5,
+    "text": "ROAST TIME",
+    "animation": "zoom_in"
+  },
+  "caption_style": {
+    "font": "Impact",
+    "fontsize": 52,
+    "color": "white",
+    "stroke_color": "black",
+    "stroke_width": 3,
+    "position": "center"
+  },
+  "watermark": {
+    "enabled": true,
+    "text": "@RoastBot",
+    "position": "bottom_right",
+    "opacity": 0.7
+  },
+  "music": {
+    "enabled": true,
+    "volume": 0.15,
+    "track": "assets/background_music.mp3"
+  },
+  "outro": {
+    "duration": 0.5,
+    "text": "FOLLOW FOR MORE ROASTS",
+    "animation": "fade_out"
+  }
+}

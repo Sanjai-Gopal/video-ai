@@ -1,0 +1,110 @@
+{
+  "1": {
+    "inputs": {
+      "ckpt_name": "sd_xl_base_1.0.safetensors"
+    },
+    "class_type": "CheckpointLoaderSimple",
+    "_meta": {
+      "title": "Load SDXL (8GB Optimized)"
+    }
+  },
+  "2": {
+    "inputs": {
+      "width": 576,
+      "height": 1024,
+      "batch_size": 1
+    },
+    "class_type": "EmptyLatentImage",
+    "_meta": {
+      "title": "Empty Latent 9:16"
+    }
+  },
+  "3": {
+    "inputs": {
+      "text": "POSITIVE_PROMPT_PLACEHOLDER",
+      "clip": ["1", 1]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "Positive Prompt (Character + Scene)"
+    }
+  },
+  "4": {
+    "inputs": {
+      "text": "NEGATIVE_PROMPT_PLACEHOLDER",
+      "clip": ["1", 1]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "Negative Prompt"
+    }
+  },
+  "5": {
+    "inputs": {
+      "model_name": "animatediff_motion_module_v15.ckpt",
+      "model": ["1", 0]
+    },
+    "class_type": "AnimateDiffLoader",
+    "_meta": {
+      "title": "Load AnimateDiff (8GB)"
+    }
+  },
+  "6": {
+    "inputs": {
+      "model": ["5", 0],
+      "model_type": "AnimateDiff-SDXL",
+      "beta_schedule": "sqrt_linear",
+      "context_length": 16,
+      "context_stride": 1,
+      "context_overlap": 4,
+      "closed_loop": false,
+      "apply_v2": true
+    },
+    "class_type": "AnimateDiffApply",
+    "_meta": {
+      "title": "Apply AnimateDiff to SDXL"
+    }
+  },
+  "7": {
+    "inputs": {
+      "seed": 42,
+      "steps": 20,
+      "cfg": 6.5,
+      "sampler_name": "euler_ancestral",
+      "scheduler": "karras",
+      "denoise": 1,
+      "model": ["6", 0],
+      "positive": ["3", 0],
+      "negative": ["4", 0],
+      "latent_image": ["2", 0]
+    },
+    "class_type": "KSampler",
+    "_meta": {
+      "title": "KSampler (Low Steps for 8GB)"
+    }
+  },
+  "8": {
+    "inputs": {
+      "samples": ["7", 0],
+      "vae": ["1", 2]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {
+      "title": "VAE Decode"
+    }
+  },
+  "9": {
+    "inputs": {
+      "filename_prefix": "AIEntertainer/roast",
+      "images": ["8", 0],
+      "fps": 8,
+      "format": "video/h264-mp4",
+      "pix_fmt": "yuv420p",
+      "crf": 25
+    },
+    "class_type": "VHS_VideoCombine",
+    "_meta": {
+      "title": "Save Video MP4"
+    }
+  }
+}

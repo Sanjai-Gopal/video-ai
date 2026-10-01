@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+env/
+.env
+
+# Data
+data/videos/*.mp4
+data/videos/*.wav
+data/logs/*.log
+data/analytics/*.db
+data/analytics/*.csv
+data/character/references/*.png
+data/character/references/*.jpg
+
+# Credentials (NEVER commit)
+credentials/*.json
+credentials/*.txt
+
+# ComfyUI (separate repo)
+ComfyUI/
+*.ckpt
+*.safetensors
+*.bin
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
