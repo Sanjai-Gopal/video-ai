@@ -1,0 +1,21 @@
+# Python embedded
+ComfyUI_windows_portable/python_embeded/
+
+# Model files
+*.ckpt
+*.safetensors
+*.bin
+*.pt
+*.pth
+
+# Cache
+__pycache__/
+*.py[cod]
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
