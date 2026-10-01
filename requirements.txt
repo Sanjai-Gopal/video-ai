@@ -1,0 +1,32 @@
+# Core dependencies
+PyYAML>=6.0
+requests>=2.31
+websocket-client>=1.6
+
+# Google APIs (YouTube)
+google-auth>=2.23
+google-auth-oauthlib>=1.1
+google-auth-httplib2>=0.1
+google-api-python-client>=2.10
+
+# Data & Analytics
+pandas>=2.1
+# sqlite3 is built-in, no pip install needed
+
+# Scheduling
+schedule>=1.2
+
+# TTS Engines - optional, install manually if needed
+# Coqui TTS: pip install TTS  (needs pandas<2.0)
+# Bark: pip install bark  (needs transformers, torch)
+
+# System TTS - uses Windows built-in (no extra install)
+
+# Video Processing
+# ffmpeg-python>=0.2  # Optional, we use subprocess directly
+
+# ComfyUI client (we use direct HTTP/WS)
+# comfyui-client>=0.1
+
+# Optional: For better video understanding
+# opencv-python>=4.8  # If you need video analysis

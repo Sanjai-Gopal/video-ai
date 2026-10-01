@@ -1,0 +1,101 @@
+# Video AI - Fully Local Free Content Pipeline
+# All components run locally on your GPU - zero API costs
+
+system:
+  name: "VideoAI Daily Creator"
+  version: "1.0.0"
+  timezone: "Asia/Kolkata"
+  schedule_time: "10:00"  # Daily run time
+
+# Ollama LLM Configuration (runs locally)
+ollama:
+  host: "http://localhost:11434"
+  model: "llama3.1:8b"  # Options: llama3.1:8b, mistral:7b, phi3:3.8b
+  temperature: 0.8
+  max_tokens: 2048
+  timeout: 120
+
+# ComfyUI Video Generation (runs locally)
+comfyui:
+  host: "http://localhost:8188"
+  workflow: "animatediff_svd.json"  # Workflow file in comfyui_workflows/
+  video_length: 8  # seconds
+  fps: 8
+  width: 576
+  height: 1024  # 9:16 for Shorts/Reels
+  timeout: 300
+
+# TTS Configuration (runs locally)
+tts:
+  engine: "coqui"  # Options: coqui, bark, system
+  coqui:
+    model: "tts_models/en/ljspeech/tacotron2-DDC"  # Fast, good quality
+    speaker_wav: null  # Optional: path to voice clone sample
+  bark:
+    voice_preset: "v2/en_speaker_6"  # Natural sounding
+  system:
+    voice: "Microsoft Zira Desktop"  # Windows built-in
+
+# Video Assembly (FFmpeg)
+video_assembly:
+  add_captions: true
+  caption_style:
+    font: "Arial"
+    fontsize: 48
+    color: "white"
+    outline_color: "black"
+    outline_width: 2
+    position: "bottom"
+    margin_bottom: 100
+  add_watermark: false
+  watermark_text: "@YourChannel"
+  output_codec: "libx264"
+  output_preset: "medium"
+  crf: 23
+
+# Social Media Posting (uses your existing OAuth tokens)
+social_media:
+  youtube:
+    enabled: true
+    client_secrets: "credentials/youtube_client_secrets.json"
+    token_file: "credentials/youtube_token.json"
+    category_id: "28"  # Science & Technology
+    privacy: "public"
+    tags: ["AI", "Technology", "Shorts", "Daily", "Viral"]
+  instagram:
+    enabled: true
+    access_token: "credentials/ig_access_token.txt"  # Long-lived token
+    business_account_id: "YOUR_IG_BUSINESS_ACCOUNT_ID"
+  facebook:
+    enabled: true
+    access_token: "credentials/fb_access_token.txt"
+    page_id: "YOUR_FACEBOOK_PAGE_ID"
+
+# Analytics Tracking
+analytics:
+  db_path: "data/analytics/videoai.db"
+  track_views: true
+  update_interval_hours: 6
+  report_schedule: "weekly"  # daily, weekly, monthly
+
+# Monetization (Affiliate links for description)
+monetization:
+  affiliate_links:
+    - name: "AI Tool Directory"
+      url: "https://your-affiliate-link.com"
+      description: "Best AI tools for productivity"
+    - name: "Student Finance Course"
+      url: "https://your-affiliate-link.com"
+      description: "Learn to manage money as a student"
+  cta_text: "Check the description for tools I use!"
+
+# Content Niches (rotate for variety)
+niches:
+  - "AI Tools & Productivity"
+  - "Tech Tips for Students"
+  - "Side Hustles for College Students"
+  - "Future of Technology"
+  - "Money Management for Gen Z"
+  - "Study Hacks & Focus"
+  - "Remote Work & Freelancing"
+  - "Emerging Tech Trends"

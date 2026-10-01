@@ -1,0 +1,110 @@
+{
+  "3": {
+    "inputs": {
+      "seed": 42,
+      "steps": 25,
+      "cfg": 7,
+      "sampler_name": "euler_ancestral",
+      "scheduler": "karras",
+      "denoise": 1,
+      "model": ["4", 0],
+      "positive": ["6", 0],
+      "negative": ["7", 0],
+      "latent_image": ["5", 0]
+    },
+    "class_type": "KSampler",
+    "_meta": {
+      "title": "KSampler (AnimateDiff)"
+    }
+  },
+  "4": {
+    "inputs": {
+      "ckpt_name": "sd_xl_base_1.0.safetensors"
+    },
+    "class_type": "CheckpointLoaderSimple",
+    "_meta": {
+      "title": "Load SDXL Checkpoint"
+    }
+  },
+  "5": {
+    "inputs": {
+      "width": 576,
+      "height": 1024,
+      "batch_size": 1
+    },
+    "class_type": "EmptyLatentImage",
+    "_meta": {
+      "title": "Empty Latent (9:16)"
+    }
+  },
+  "6": {
+    "inputs": {
+      "text": "PROMPT_PLACEHOLDER, masterpiece, best quality, cinematic lighting, 8k, highly detailed, smooth motion, 9:16 aspect ratio",
+      "clip": ["4", 1]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "Positive Prompt"
+    }
+  },
+  "7": {
+    "inputs": {
+      "text": "blurry, low quality, distorted, ugly, bad anatomy, watermark, text, title, logo, signature, static, frozen, jerky motion, flickering",
+      "clip": ["4", 1]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "Negative Prompt"
+    }
+  },
+  "8": {
+    "inputs": {
+      "model_name": "animatediff_motion_module_v15.ckpt",
+      "model": ["4", 0]
+    },
+    "class_type": "AnimateDiffLoader",
+    "_meta": {
+      "title": "Load AnimateDiff Model"
+    }
+  },
+  "9": {
+    "inputs": {
+      "model": ["8", 0],
+      "model_type": "AnimateDiff-SD15",
+      "beta_schedule": "sqrt_linear",
+      "context_length": 16,
+      "context_stride": 1,
+      "context_overlap": 4,
+      "closed_loop": false,
+      "apply_v2": true
+    },
+    "class_type": "AnimateDiffApply",
+    "_meta": {
+      "title": "Apply AnimateDiff"
+    }
+  },
+  "10": {
+    "inputs": {
+      "samples": ["3", 0],
+      "vae": ["4", 2]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {
+      "title": "VAE Decode"
+    }
+  },
+  "11": {
+    "inputs": {
+      "filename_prefix": "VideoAI/shorts",
+      "images": ["10", 0],
+      "fps": 8,
+      "format": "video/h264-mp4",
+      "pix_fmt": "yuv420p",
+      "crf": 23
+    },
+    "class_type": "VHS_VideoCombine",
+    "_meta": {
+      "title": "Save Video (MP4)"
+    }
+  }
+}
